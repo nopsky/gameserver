@@ -156,7 +156,7 @@ func (c *Client) _recv() (err error) {
 		size := binary.BigEndian.Uint16(header)
 
 		//crc值
-		crc1 := binary.BigEndian.Uint32(header)
+		crc1 := binary.BigEndian.Uint32(header[2:6])
 
 		data = make([]byte, size)
 

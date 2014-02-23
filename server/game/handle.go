@@ -10,7 +10,7 @@ import (
 	gs "gameserver"
 	"lib/packet"
 	"message"
-	"server/gate/service"
+	"server/game/service"
 )
 
 type Handle struct {
@@ -53,7 +53,7 @@ func (this *Handle) ServerHandle(data []byte, sess *gs.Session) (ackData []byte,
 	reqData, err := reader.ReadAtLeast()
 
 	if err != nil {
-		errstr := fmt.Sprintf("读取数据包内容出错", err)
+		errstr := fmt.Sprintf("读取数据包内容出错")
 		err = errors.New(errstr)
 		return
 	}

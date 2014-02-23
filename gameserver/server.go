@@ -6,6 +6,7 @@ import (
 	"hash/crc32"
 	"io"
 	"log"
+	"model"
 	"net"
 	"strings"
 	"sync"
@@ -80,12 +81,14 @@ type Connect struct {
 }
 
 func NewConnect(conn net.Conn, dh DataHandler) *Connect {
+	sess := new(Session)
+	sess.User = model.NewUserInfo()
 	return &Connect{
 		conn: conn,
 		exit: make(chan bool),
 		dh:   dh,
 		send: make(chan []byte, 1),
-		sess: new(Session),
+		sess: sess,
 	}
 }
 
@@ -160,8 +163,10 @@ func (c *Connect) _recv() (err error) {
 		//数据包长度
 		size := binary.BigEndian.Uint16(header)
 
+		log.Println("接受到的size为:", size, "header data :", header)
+
 		//crc值
-		crc1 := binary.BigEndian.Uint32(header)
+		crc1 := binary.BigEndian.Uint32(header[2:6])
 
 		data = make([]byte, size)
 

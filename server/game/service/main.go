@@ -51,7 +51,7 @@ func (this *LocalServices) GetFunc(msgid int32) (run funcType, err error) {
 }
 
 func decode(reqData []byte, _req interface{}) (err error) {
-	if len(reqData) == 0 {
+	if reqData == nil {
 		return
 	}
 	var mh codec.MsgpackHandle

@@ -50,7 +50,7 @@ func (p *Packet) ReadByte() (ret byte, err error) {
 
 func (p *Packet) ReadAtLeast() (ret []byte, err error) {
 	size := uint(len(p.data))
-	if p.pos >= size {
+	if p.pos > size {
 		err = errors.New("read byte failed")
 		return
 	}

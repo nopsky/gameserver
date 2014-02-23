@@ -1,9 +1,11 @@
-package msg
+package message
 
 //请求的msgid
 
 const SUCCESS int32 = 0
 const (
 	ERR_REGISTER int32 = 1 + iota
-	ERR_LOGIN          = 2
+	ERR_LOGIN
+	ERR_SELECTROLE
+	ERR_BUYROLE
 )

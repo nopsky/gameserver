@@ -1,16 +1,16 @@
 package gameserver
 
 import (
+	"model"
 	"net"
 	"time"
 )
 
 type Session struct {
-	IP        net.IP
-	SessionId uint64
-	LoggedIn  bool
-	KickOut   bool
-	MQ        chan []byte
+	IP      net.IP
+	User    *model.UserInfo
+	KickOut bool
+	MQ      chan []byte
 
 	// time related
 	ConnectTime    time.Time

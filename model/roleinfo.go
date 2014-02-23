@@ -51,8 +51,7 @@ func (r *RoleInfo) GetRoleInfo(uid uint64, role_id uint8) (err error) {
 }
 
 //获取玩家所有的角色
-func (r RoleInfo) GetRoleList(uid uint64) (urList []*RoleInfo, err error) {
-	urList = make([]*RoleInfo, 10)
+func (r RoleInfo) GetRoleList(uid uint64) (urList []RoleInfo, err error) {
 	rows, err := db.Query("Select * FROM user_role WHERE uid = ?", uid)
 
 	if err != nil {
@@ -66,7 +65,7 @@ func (r RoleInfo) GetRoleList(uid uint64) (urList []*RoleInfo, err error) {
 			log.Println(err)
 			return
 		}
-		urList = append(urList, ur)
+		urList = append(urList, *ur)
 	}
 	return
 }

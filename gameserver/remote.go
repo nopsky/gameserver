@@ -23,6 +23,7 @@ func NewRemoteServices(ServNum int) *RemoteServices {
 
 func (this *RemoteServices) Register(groupName string, serverId int32, run funcType) (err error) {
 	if _, ok := this.servs[groupName][serverId]; !ok {
+		this.servs[groupName] = make(map[int32]*rserv, 10)
 		s := new(rserv)
 		s.Run = run
 		this.servs[groupName][serverId] = s

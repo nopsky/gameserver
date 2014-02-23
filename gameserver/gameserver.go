@@ -36,12 +36,14 @@ type ServerConfig struct {
 	MaxConn int
 }
 
-func NewGameServer(ccs []ClientConfig, sc ServerConfig, debug bool) *GameServer {
+func NewGameServer(ccs []ClientConfig, sc ServerConfig, debug bool, cdh DataHandler, sdh DataHandler) *GameServer {
 	gs := new(GameServer)
 	gs.ccs = ccs
 	gs.sc = sc
 	gs.Debug = debug
 	gs.Cls = NewRemoteServices(len(ccs))
+	gs.cdh = cdh
+	gs.sdh = sdh
 	return gs
 }
 

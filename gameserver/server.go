@@ -194,7 +194,7 @@ func (c *Connect) _recv() (err error) {
 		}
 
 		if ackData != nil {
-			c.send <- packet(seqId, ackData)
+			c.send <- PacketData(seqId, ackData)
 		}
 		//指定数据类型
 		// reader := packet.reader(data)

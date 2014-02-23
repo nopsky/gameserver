@@ -3,7 +3,7 @@ package main
 import (
 	"errors"
 	"fmt"
-	//"log"
+	"log"
 )
 
 import (
@@ -34,8 +34,8 @@ func (this *Handle) ServerHandle(data []byte, sess *gs.Session) (ackData []byte,
 		return
 	}
 
-	if uid != sess.SessionId {
-		errstr := fmt.Sprintf("用户UID不正确,非法请求, uid:%d != sess.Uid:%d", uid, sess.SessionId)
+	if uid != sess.User.Uid {
+		errstr := fmt.Sprintf("用户UID不正确,非法请求, uid:%d != sess.Uid:%d", uid, sess.User.Uid)
 		err = errors.New(errstr)
 		return
 	}
@@ -58,16 +58,18 @@ func (this *Handle) ServerHandle(data []byte, sess *gs.Session) (ackData []byte,
 		return
 	}
 
+	log.Println("接受用户:", uid, " 消息ID为:", msgid, " 数据为:", reqData)
+
 	_handle, err := this.Local.GetFunc(msgid)
 
 	if err == nil {
-		ackData, err = _handle(sess, reqData)
+		ackData, err = _handle(sess.User, reqData)
 		if err != nil {
 			return
 		}
-		if msgid == msg.MSG_REGISTER || msgid == msg.MSG_LOGIN {
-			gs.AddConn(sess.SessionId, sess.MQ)
-		} else if msgid == msg.MSG_LOGOUT {
+		if msgid == message.MSG_REGISTER || msgid == message.MSG_LOGIN {
+			gs.AddConn(sess.User.Uid, sess.MQ)
+		} else if msgid == message.MSG_LOGOUT {
 			gs.RemoveConn(uid)
 		}
 		return

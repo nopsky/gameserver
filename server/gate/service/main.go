@@ -3,13 +3,13 @@ package service
 import (
 	"errors"
 	"fmt"
-	"gameserver"
 	"github.com/ugorji/go/codec"
 	"lib/packet"
 	"log"
+	"model"
 )
 
-type funcType func(*gameserver.Session, []byte) ([]byte, error)
+type funcType func(*model.UserInfo, []byte) ([]byte, error)
 
 type LocalServices struct {
 	servs map[int32]*serv

@@ -56,7 +56,7 @@ func (p *Packet) ReadAtLeast() (ret []byte, err error) {
 	}
 
 	ret = p.data[p.pos:]
-	p.pos += size
+	p.pos = size
 	return
 }
 

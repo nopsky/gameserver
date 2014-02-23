@@ -31,9 +31,9 @@ func main() {
 	var sc gameserver.ServerConfig
 	dh := NewHandle()
 	sc.Name = "Gate Server"
-	sc.Port = "1111"
+	sc.Port = "8080"
 	sc.MaxConn = 1024
-	gs := gameserver.NewGameServer(ccs, sc, false)
+	gs := gameserver.NewGameServer(ccs, sc, false, dh, dh)
 	dh.Remote = gs.Cls
 	dh.Local = service.Local
 	gs.Start()
